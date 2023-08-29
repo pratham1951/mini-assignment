@@ -14,6 +14,7 @@ pipeline {
         stage('CLEAN WORKSPACE') {
             steps {
                 cleanWs()
+                sh 'docker image prune -a -y'
             }
         }
         
