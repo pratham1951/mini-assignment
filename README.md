@@ -6,3 +6,5 @@ Spring-MVC,
 Maven,
 Tomcat-server,
 Eclipse-IDE.
+
+Project configured with jenkins
