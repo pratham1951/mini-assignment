@@ -19,7 +19,8 @@ pipeline {
         
         stage('CODE CHECKOUT') {
             steps {
-               git url:'https://github.com/pratham1951/mini-assignment.git', branch :'prod'
+               // git url:'https://github.com/pratham1951/mini-assignment.git', branch :'prod'
+                checkout scm
             }
         }
         
@@ -29,9 +30,8 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
-        stage ('Deploy to non-production environments') {
+        stage ('Deploy to Development environments') {
             when {
-                // Only deploy if the environment is NOT production
                 expression { params.ENVIRONMENT != 'PRODUCTION' }
             }
             steps {
@@ -56,7 +56,6 @@ pipeline {
         }
        stage('PUSH DEVELOPMENT IMAGE ON DOCKERHUB') {
            when {
-                // Only deploy if the environment is NOT production
                 expression { params.ENVIRONMENT != 'PRODUCTION' }
             }
             environment {
