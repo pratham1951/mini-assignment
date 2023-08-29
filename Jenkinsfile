@@ -30,6 +30,20 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
+
+        stage('SONAR SCANNER') {
+            environment {
+            sonar_token = credentials('SONAR_TOKEN')
+            }
+            steps {
+                sh 'mvn sonar:sonar -Dsonar.projectName=$JOB_NAME \
+                    -Dsonar.projectKey=$JOB_NAME \
+                    -Dsonar.host.url=https://crispy-robot-v7pwvgqvvrcpjx5-9000.app.github.dev \
+                    -Dsonar.token=$sonar_token'
+            }
+        } 
+
+        
         stage ('Deploy to Development environments') {
             when {
                 expression { params.ENVIRONMENT != 'PRODUCTION' }
@@ -87,6 +101,15 @@ pipeline {
                 sh 'docker push $dockerhub_user/$JOB_NAME-prod:latest'
                 sh 'docker logout'
             }
+        }
+        stage('Email Notification')
+        {
+           steps{
+               mail bcc: '', body: '''This Jenkins job ran successfully.
+              Thanks & regards
+              Pratham Sharma 
+              ''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job run Succesfully', to: 'sharmapratham1951@gmail.com'
+           }
         }
     }    
      
