@@ -90,10 +90,12 @@ pipeline {
         }
         stage('Email Notification')
         {
-            mail bcc: '', body: '''This Jenkins job ran successfully.
-            Thanks & regards
-            Pratham Sharma 
-            ''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job run Succesfully', to: 'sharmapratham1951@gmail.com'
+           steps{
+               mail bcc: '', body: '''This Jenkins job ran successfully.
+              Thanks & regards
+              Pratham Sharma 
+              ''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job run Succesfully', to: 'sharmapratham1951@gmail.com'
+           }
         }
     }    
      
