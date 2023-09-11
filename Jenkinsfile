@@ -34,17 +34,17 @@ pipeline {
             }
         }
 
-        // stage('SONAR SCANNER') {
-        //     environment {
-        //     sonar_token = credentials('SONAR_TOKEN')
-        //     }
-        //     steps {
-        //         sh 'mvn sonar:sonar -Dsonar.projectName=$JOB_NAME \
-        //             -Dsonar.projectKey=$JOB_NAME \
-        //             -Dsonar.host.url=https://crispy-robot-v7pwvgqvvrcpjx5-9000.app.github.dev \
-        //             -Dsonar.token=$sonar_token'
-        //     }
-        // } 
+        stage('SONAR SCANNER') {
+            environment {
+            sonar_token = credentials('SONAR_TOKEN')
+            }
+            steps {
+                sh 'mvn sonar:sonar -Dsonar.projectName=$JOB_NAME \
+                    -Dsonar.projectKey=$JOB_NAME \
+                    -Dsonar.host.url=https://crispy-robot-v7pwvgqvvrcpjx5-9000.app.github.dev \
+                    -Dsonar.token=$sonar_token'
+            }
+        } 
 
         //  stage('Artifactory'){
         //     steps{
